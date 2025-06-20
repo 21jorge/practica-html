@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Para Nataly</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to bottom, #87CEEB 0%, #B2EBF2 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    .title {
+      font-size: 4rem;
+      margin: 20px 0;
+      text-align: center;
+      background: linear-gradient(45deg, #FFD700, #FF8C00, #FF4500);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .landscape {
+      position: relative;
+      width: 100%;
+      height: 70vh;
+      overflow: hidden;
+    }
+
+    .sun {
+      position: absolute;
+      top: 40px;
+      left: 80px;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, #FFD700, #FF8C00);
+      border-radius: 50%;
+      box-shadow: 0 0 60px #FFD700;
+      z-index: 2;
+    }
+
+    .mountains {
+      position: absolute;
+      bottom: 140px;
+      width: 100%;
+      height: 160px;
+      background: linear-gradient(to top, #2E8B57, #3CB371);
+      clip-path: polygon(
+        0% 100%, 10% 70%, 20% 80%, 30% 65%, 
+        40% 75%, 50% 60%, 60% 78%, 70% 68%, 
+        80% 85%, 90% 70%, 100% 90%, 100% 100%, 0 100%
+      );
+      z-index: 2;
+    }
+
+    .field {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 160px;
+      background: linear-gradient(to top, #228B22, #32CD32);
+      z-index: 3;
+    }
+
+    .sunflower-container {
+      position: absolute;
+      z-index: 4;
+      animation: sway 4s infinite ease-in-out;
+      transform-origin: bottom center;
+    }
+
+    @keyframes sway {
+      0%, 100% { transform: rotate(-1.5deg); }
+      50% { transform: rotate(1.5deg); }
+    }
+
+    .sunflower {
+      position: relative;
+      width: 100px;
+      height: 100px;
+    }
+
+    .petal-ring {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background: #FFD700;
+      border-radius: 50%;
+      top: -10px;
+      left: 0;
+      z-index: 1;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .sunflower-center {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: radial-gradient(circle, #5D4037, #3E2723);
+      border-radius: 50%;
+      top: 30px;
+      left: 30px;
+      z-index: 2;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .stem {
+      position: absolute;
+      width: 8px;
+      height: 100px;
+      background: linear-gradient(to bottom, #2E7D32, #4CAF50);
+      bottom: -100px;
+      left: 46px;
+      z-index: 1;
+    }
+
+    .leaf {
+      position: absolute;
+      width: 40px;
+      height: 30px;
+      background: #4CAF50;
+      border-radius: 50% 50% 50% 0;
+      bottom: -60px;
+      left: 10px;
+      transform: rotate(30deg);
+      z-index: 1;
+    }
+
+    .leaf.right {
+      left: auto;
+      right: 10px;
+      border-radius: 50% 50% 0 50%;
+      transform: rotate(-30deg);
+    }
+
+    /* ❤️ Corazón con animación */
+    #heart-message-container {
+      position: absolute;
+      top: 120px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      width: 300px;
+      height: 300px;
+    }
+
+    #heart {
+      width: 100%;
+      height: 100%;
+    }
+
+    #heart path {
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      animation: drawHeart 3s ease forwards, fillHeart 3s ease 3s forwards;
+      fill: #FF4F4F;
+      fill-opacity: 0;
+    }
+
+    @keyframes drawHeart {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    @keyframes fillHeart {
+      to {
+        fill-opacity: 1;
+      }
+    }
+
+    #animated-message {
+  position: absolute;
+  top: 48%; /* antes 52% */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 0.75rem; /* antes 0.9rem */
+  font-weight: bold;
+  color: white;
+  padding: 10px 14px;
+  max-width: 200px; /* antes 220px */
+  line-height: 1.5;
+  z-index: 11;
+}
+
+.button-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 40px;
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 10px;
+  z-index: 5;
+}
+
+.action-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(45deg, #FF8C00, #FF4500);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  transition: transform 0.2s, background 0.3s;
+}
+
+.action-button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(45deg, #FFA500, #FF6347);
+}
+
+.message-box {
+  position: fixed;
+  left: 50%;
+  bottom: 100px;
+  transform: translateX(-50%);
+  width: 85%;
+  max-width: 600px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 2px solid #FF4500;
+  border-radius: 15px;
+  padding: 20px 40px 20px 20px;
+  color: #333;
+  font-size: 1rem;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  z-index: 999;
+}
+
+.message-box.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(20px);
+}
+
+.message-box p {
+  margin: 0;
+  text-align: justify;
+  line-height: 1.5;
+}
+
+.close-button {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 1.2rem;
+  color: #FF4500;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+  </style>
+</head>
+<body>
+  <h1 class="title">Nataly</h1>
+
+  <!-- ❤️ Corazón con texto animado -->
+  <div id="heart-message-container">
+    <svg id="heart" viewBox="0 0 32 29.6" preserveAspectRatio="xMidYMid meet">
+      <path d="M23.6,0c-3.4,0-6.4,2.1-7.6,5.1C14.8,2.1,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4
+               c0,4.5,3.4,8.2,10.2,13.7c2.1,1.7,4.4,3.6,5.8,4.8c1.4-1.2,3.7-3.1,5.8-4.8
+               C28.6,16.6,32,12.9,32,8.4C32,3.8,28.2,0,23.6,0z"
+            fill="none"
+            stroke="#FF0000"
+            stroke-width="0.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+      />
+    </svg>
+    <p id="animated-message"></p>
+  </div>
+
+  <div class="landscape" id="landscape">
+    <div class="sun"></div>
+    <div class="mountains"></div>
+    <div class="field"></div>
+  </div>
+
+  <script>
+    function createSunflower(x, y, scale = 1) {
+      const container = document.createElement('div');
+      container.className = 'sunflower-container';
+      container.style.left = `${x}px`;
+      container.style.bottom = `${y}px`;
+      container.style.transform = `scale(${scale})`;
+
+      const sunflower = document.createElement('div');
+      sunflower.className = 'sunflower';
+
+      const petals = document.createElement('div');
+      petals.className = 'petal-ring';
+      sunflower.appendChild(petals);
+
+      const center = document.createElement('div');
+      center.className = 'sunflower-center';
+      sunflower.appendChild(center);
+
+      const stem = document.createElement('div');
+      stem.className = 'stem';
+      sunflower.appendChild(stem);
+
+      const leaf1 = document.createElement('div');
+      leaf1.className = 'leaf';
+      sunflower.appendChild(leaf1);
+
+      const leaf2 = document.createElement('div');
+      leaf2.className = 'leaf right';
+      sunflower.appendChild(leaf2);
+
+      container.appendChild(sunflower);
+      return container;
+    }
+
+    function createSunflowerField() {
+      const landscape = document.getElementById('landscape');
+      const width = landscape.offsetWidth;
+
+      const positions = [
+        {x: 40, y: 30, scale: 1.0},
+        {x: 120, y: 50, scale: 0.95},
+        {x: 200, y: 45, scale: 1.05},
+        {x: 280, y: 55, scale: 0.9},
+        {x: 360, y: 50, scale: 1.0},
+        {x: 440, y: 40, scale: 0.92},
+        {x: 520, y: 55, scale: 1.1},
+        {x: 600, y: 50, scale: 1.0}
+      ];
+
+      document.querySelectorAll('.sunflower-container').forEach(el => el.remove());
+
+      positions.forEach(pos => {
+        if (pos.x < width - 100) {
+          const sunflower = createSunflower(pos.x, pos.y, pos.scale);
+          landscape.appendChild(sunflower);
+        }
+      });
+    }
+
+    window.addEventListener('load', createSunflowerField);
+    window.addEventListener('resize', createSunflowerField);
+
+    // ✍️ Mensaje dentro del corazón
+    const fullMessage = "Eres una persona extraordinaria. Nunca permitas que nadie te menosprecie ni ponga en duda tu valor. Eres única, admirable y una gran mujer. Te quiero mucho";
+    const messageElement = document.getElementById('animated-message');
+    let i = 0;
+    function typeMessage() {
+      if (i < fullMessage.length) {
+        messageElement.textContent += fullMessage.charAt(i);
+        i++;
+        setTimeout(typeMessage, 40);
+      }
+    }
+
+    // Espera que el corazón se dibuje y rellene
+    window.addEventListener('load', () => {
+      setTimeout(typeMessage, 3500);
+    });
+  </script>
+
+  <div class="button-row">
+  <button class="action-button" onclick="showMessage('message-box')">Presiona aquí</button>
+  <button class="action-button" onclick="showMessage('message-box-2')">También presiona aquí</button>
+</div>
+
+<div id="message-box" class="message-box hidden">
+  <span class="close-button" onclick="closeMessage('message-box')">✖</span>
+  <p>
+    Quiero que sepas que siempre podrás contar conmigo. Tal vez no tenga todas las respuestas ni la solución a cada uno de tus problemas, pero jamás me faltará la voluntad para escucharte, apoyarte y estar a tu lado cuando más lo necesites. No estás sola… me tienes a mí, y estaré aquí para ti, hoy y siempre. Deseo de corazón que te recuperes pronto.
+  </p>
+</div>
+
+<div id="message-box-2" class="message-box hidden">
+  <span class="close-button" onclick="closeMessage('message-box-2')">✖</span>
+  <p>
+    Espero ir a Rock al Parque contigo este fin de semana jejeje. ¡Un abrazo Nataly!
+  </p>
+</div>
+
+
+
+<script>
+  function showMessage(id) {
+    document.getElementById(id).classList.remove('hidden');
+  }
+
+  function closeMessage(id) {
+    document.getElementById(id).classList.add('hidden');
+  }
+</script>
+
+
+</body>
+</html>
